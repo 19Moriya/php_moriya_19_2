@@ -2,10 +2,8 @@
 //1.  DB接続します
 try {
   //Password:MAMP='root',XAMPP=''
-  $pdo = new PDO('mysql:dbname=moriya_db; charset=utf8; host=localhost','root','');
-} catch (PDOException $e) {
-  exit('DBConnection Error:'.$e->getMessage());
-}
+  $pdo = new PDO('mysql:dbname=moriya19_moriya_db;charset=utf8;host=mysql57.moriya19.sakura.ne.jp', 'moriya19' ,'moriya19_');
+} catch (PDOException $e) {exit('DBConnection Error:'.$e->getMessage());};
 
 //２．データ取得SQL作成
 $stmt = $pdo->prepare("SELECT * FROM gs_bm_table");
