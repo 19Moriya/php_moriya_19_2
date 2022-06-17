@@ -7,7 +7,7 @@ $comment = $_POST['comment'];
 //2. DB接続します
 try {
   //Password:MAMP='root',XAMPP=''
-  $pdo = new PDO('mysql:dbname=moriya_db;charset=utf8;host=localhost','root','');
+  $pdo = new PDO('mysql:dbname=moriya19_moriya_db;charset=utf8;host=mysql57.moriya19.sakura.ne.jp', 'moriya19' ,'moriya19_');
 } catch (PDOException $e) {exit('DBConnection Error:'.$e->getMessage());};
 
 //３．データ登録SQL作成
