@@ -5,9 +5,10 @@ $id   = $_GET["id"];
 //2. DB接続します
 try {
     //Password:MAMP='root',XAMPP=''
-    $pdo = new PDO('mysql:dbname=moriya19_moriya_db;charset=utf8;host=mysql57.moriya19.sakura.ne.jp', 'moriya19' ,'moriya19_');
-  } catch (PDOException $e) {exit('DBConnection Error:'.$e->getMessage());};
-  
+    $pdo = new PDO('mysql:dbname=moriya_db;charset=utf8;host=localhost','root','');
+  } catch (PDOException $e) {
+    exit('DBConnection Error:'.$e->getMessage());
+  }
 
 //３．データ削除SQL作成
 $sql = "delete from gs_bm_table where id=:id";
@@ -17,9 +18,12 @@ $status = $stmt->execute(); //実行
 
 //４．データ登録処理後
 if($status==false){
-    sql_error($stmt);
-}else{
-    redirect("select.php");
-}
-
+    //SQL実行時にエラーがある場合（エラーオブジェクト取得して表示）
+    $error = $stmt->errorInfo();
+    exit("SQL_ERROR:".$error[2]);
+  }else{
+    //５．index.phpへリダイレクト
+    header("Location: index.php");
+    exit();
+  }
 ?>

@@ -1,5 +1,5 @@
 <?php
-
+//1. POSTデータ取得
 $name = $_POST['name'];
 $url = $_POST['url'];
 $comment = $_POST['comment'];
@@ -7,8 +7,10 @@ $comment = $_POST['comment'];
 //2. DB接続します
 try {
   //Password:MAMP='root',XAMPP=''
-  $pdo = new PDO('mysql:dbname=moriya19_moriya_db;charset=utf8;host=mysql57.moriya19.sakura.ne.jp', 'moriya19' ,'moriya19_');
-} catch (PDOException $e) {exit('DBConnection Error:'.$e->getMessage());};
+  $pdo = new PDO('mysql:dbname=moriya_db;charset=utf8;host=localhost','root','');
+} catch (PDOException $e) {
+  exit('DBConnection Error:'.$e->getMessage());
+}
 
 //３．データ登録SQL作成
 $stmt = $pdo->prepare("insert into gs_bm_table(name, url, comment, date) values(:name, :url, :comment, sysdate())");
