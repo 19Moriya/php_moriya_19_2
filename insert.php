@@ -4,13 +4,9 @@ $name = $_POST['name'];
 $url = $_POST['url'];
 $comment = $_POST['comment'];
 
-//2. DB接続します
-try {
-  //Password:MAMP='root',XAMPP=''
-  $pdo = new PDO('mysql:dbname=moriya_db;charset=utf8;host=localhost','root','');
-} catch (PDOException $e) {
-  exit('DBConnection Error:'.$e->getMessage());
-}
+//*** 外部ファイルを読み込む ***
+include("funcs.php");
+$pdo = db_conn();
 
 //３．データ登録SQL作成
 $stmt = $pdo->prepare("insert into gs_bm_table(name, url, comment, date) values(:name, :url, :comment, sysdate())");

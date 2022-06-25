@@ -1,18 +1,15 @@
 <?php
+include("funcs.php");  //funcs.phpを読み込む（関数群）
 //1. POSTデータ取得
-
 $name = $_POST['name'];
 $url = $_POST['url'];
 $comment = $_POST['comment'];
 $id   = $_POST["id"];   //idを取得
 
-//1.  DB接続します
-try {
-    //Password:MAMP='root',XAMPP=''
-    $pdo = new PDO('mysql:dbname=moriya_db;charset=utf8;host=localhost','root','');
-  } catch (PDOException $e) {
-    exit('DBConnection Error:'.$e->getMessage());
-  }
+//2. DB接続します
+include("funcs.php");  //funcs.phpを読み込む（関数群）
+$pdo = db_conn();      //DB接続関数
+
 
 //３．データ登録SQL作成
 $sql = "update gs_bm_table set name=:name, url=:url, comment=:comment where id=:id";
@@ -25,13 +22,10 @@ $status = $stmt->execute(); //実行
 
 //４．データ登録処理後
 if($status==false){
-    //SQL実行時にエラーがある場合（エラーオブジェクト取得して表示）
-    $error = $stmt->errorInfo();
-    exit("SQL_ERROR:".$error[2]);
-  }else{
-    //５．index.phpへリダイレクト
-    header("Location: index.php");
-    exit();
-  }
+    sql_error($stmt);
+}else{
+    redirect("select.php");
+}
+
 
 ?>

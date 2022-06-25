@@ -3,12 +3,9 @@
 $id   = $_GET["id"];
 
 //2. DB接続します
-try {
-    //Password:MAMP='root',XAMPP=''
-    $pdo = new PDO('mysql:dbname=moriya_db;charset=utf8;host=localhost','root','');
-  } catch (PDOException $e) {
-    exit('DBConnection Error:'.$e->getMessage());
-  }
+include("funcs.php");  //funcs.phpを読み込む（関数群）
+$pdo = db_conn();      //DB接続関数
+
 
 //３．データ削除SQL作成
 $sql = "delete from gs_bm_table where id=:id";

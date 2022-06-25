@@ -1,33 +1,27 @@
 <?php
-//1.  DB接続します
-try {
-  //Password:MAMP='root',XAMPP=''
-  $pdo = new PDO('mysql:dbname=moriya_db;charset=utf8;host=localhost','root','');
-} catch (PDOException $e) {
-  exit('DBConnection Error:'.$e->getMessage());
-}
+include("funcs.php");  //funcs.phpを読み込む（関数群）
+$pdo = db_conn();      //DB接続関数
 
 //２．データ取得SQL作成
 $stmt = $pdo->prepare("SELECT * FROM gs_bm_table");
 $status = $stmt->execute();
 
 //３．データ表示
-$view="";
+$view=""; //HTML文字列作り、入れる変数
 if($status==false) {
-    //execute（SQL実行時にエラーがある場合）
-  $error = $stmt->errorInfo();
-  exit("SQL_ERROR:".$error[2]);
+  //SQLエラーの場合
+  sql_error($stmt);
 }else{
- //SQL成功の場合
- while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){ //データ取得数分繰り返す
-  //以下でリンクの文字列を作成, $r["id"]でidをdetail.phpに渡しています
-  $view .= '<a href="detail.php?id='.h($r["id"]).'">';
-  $view .= h($r["id"])."|".h($r["name"]);
-  $view .= '</a>';
-  $view .= '<a href="delete.php?id='.h($r["id"]).'">';
-  $view .= "[削除]<br>";
-  $view .= '</a>';
-}
+  //SQL成功の場合
+  while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){ //データ取得数分繰り返す
+    //以下でリンクの文字列を作成, $r["id"]でidをdetail.phpに渡しています
+    $view .= '<a href="detail.php?id='.h($r["id"]).'">';
+    $view .= h($r["id"])."|".h($r["name"]);
+    $view .= '</a>';
+    $view .= '<a href="delete.php?id='.h($r["id"]).'">';
+    $view .= "[削除]<br>";
+    $view .= '</a>';
+  }
 }
 ?>
 
