@@ -22,6 +22,9 @@ if($status==false) {
     $view .= "<p>";
     $view .= $res["id"].", ".$res["name"];
     $view .= "</p>";
+    $view .= '<a href="delete.php?id='.h($r["id"]).'">';
+    $view .= "[削除]<br>";
+    $view .= '</a>';
   }
 
 }
