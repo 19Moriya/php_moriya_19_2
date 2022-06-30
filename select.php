@@ -1,8 +1,13 @@
 <?php
+//0. SESSION開始！！
+session_start();
+
+//１．関数群の読み込み
 include("funcs.php");  //funcs.phpを読み込む（関数群）
-$pdo = db_conn();      //DB接続関数
+sschk();
 
 //２．データ取得SQL作成
+$pdo = db_conn();      //DB接続関数
 $stmt = $pdo->prepare("SELECT * FROM gs_bm_table");
 $status = $stmt->execute();
 

@@ -6,6 +6,7 @@ $comment = $_POST['comment'];
 
 //*** 外部ファイルを読み込む ***
 include("funcs.php");
+sschk();
 $pdo = db_conn();
 
 //３．データ登録SQL作成
